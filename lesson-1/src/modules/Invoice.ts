@@ -1,3 +1,4 @@
+// Classes
 export class Invoice {
     constructor(
         readonly client: string,

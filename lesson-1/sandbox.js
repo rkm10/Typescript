@@ -16,3 +16,8 @@ mixed.push(true);
 console.log(mixed);
 mixed = ['kumar', 2, true];
 console.log(mixed);
+var ninjaOne;
+ninjaOne = { name: 'raj', age: 22 };
+var ninjaTwo;
+ninjaTwo = { name: 'rajkumar', age: 26 };
+console.log(ninjaOne, 'ninjaTwo======', ninjaTwo);

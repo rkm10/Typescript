@@ -24,3 +24,11 @@ console.log(mixed);
 
 mixed = ['kumar', 2, true];
 console.log(mixed);
+
+
+let ninjaOne: object;
+ninjaOne = { name: 'raj', age: 22 };
+let ninjaTwo: { name: string, age: number };
+ninjaTwo = { name: 'rajkumar', age: 26 };
+console.log(ninjaOne,
+    'ninjaTwo======', ninjaTwo);

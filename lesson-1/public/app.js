@@ -1,6 +1,6 @@
 const me = {
     name: "raj",
-    age: 30,
+    age: 26,
     speak(text) {
         console.log(text);
     },
@@ -9,6 +9,10 @@ const me = {
         return amount;
     }
 };
+const greetPerson = (person) => {
+    console.log(`hello ${person.name} you are ${person.age} years old`);
+};
+greetPerson(me);
 console.log(me);
 import { Invoice } from './modules/invoice.js';
 const invOne = new Invoice("rajkumar", "work on website", 250);

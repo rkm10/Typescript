@@ -8,7 +8,7 @@ interface isPerson {
 
 const me: isPerson = {
     name: "raj",
-    age: 30,
+    age: 26,
     speak(text: string): void {
         console.log(text);
     },
@@ -17,6 +17,11 @@ const me: isPerson = {
         return amount
     }
 };
+
+const greetPerson = (person: isPerson) => {
+    console.log(`hello ${person.name} you are ${person.age} years old`);
+}
+greetPerson(me);
 console.log(me);
 
 

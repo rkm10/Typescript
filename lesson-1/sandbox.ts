@@ -10,3 +10,7 @@ console.log(num)
 
 let mixed = ["raj", 1, "kumar", 2, "malluri", 3];
 console.log(mixed)
+
+mixed.push("lali")
+mixed[1] = "raj"
+console.log(mixed)

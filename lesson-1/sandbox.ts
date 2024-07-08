@@ -22,3 +22,4 @@ let Ninja = {
     age: 22,
     belt: "black",
 }
+console.log(Ninja);

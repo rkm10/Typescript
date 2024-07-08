@@ -9,3 +9,8 @@ console.log(mixed);
 mixed.push("lali");
 mixed[1] = "raj";
 console.log(mixed);
+var Ninja = {
+    name: "raj",
+    age: 22,
+    belt: "black",
+};

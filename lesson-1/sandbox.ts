@@ -1,25 +1,26 @@
-let names = ["raj", "kumar", "malluri"];
+let character: string;
+let age: number;
+let isLoggedIn: boolean;
 
-names.push("lali")
-console.log(names);
+age = 22;
+character = "raj";
+isLoggedIn = true;
 
 
+console.log('character', character, 'age', age, 'isLoggedIn', isLoggedIn);
 
-let num = [1, 2, 3];
 
-num.push(4);
-console.log(num)
+let ninjas: string[] = [];
+ninjas.push('raj');
+ninjas = ['kumar', 'malluri'];
+console.log(ninjas);
 
-let mixed = ["raj", 1, "kumar", 2, "malluri", 3];
-console.log(mixed)
 
-mixed.push("lali")
-mixed[1] = "raj"
-console.log(mixed)
+let mixed: (string | number | boolean)[] = [];
+mixed.push('raj');
+mixed.push(1);
+mixed.push(true);
+console.log(mixed);
 
-let Ninja = {
-    name: "raj",
-    age: 22,
-    belt: "black",
-}
-console.log(Ninja);
+mixed = ['kumar', 2, true];
+console.log(mixed);

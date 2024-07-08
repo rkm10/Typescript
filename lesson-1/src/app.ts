@@ -1,44 +1,30 @@
-//interfaces
-interface isPerson {
-    name: string;
-    age: number;
-    speak(a: string): void;
-    spend(a: number): number
-}
-
-const me: isPerson = {
-    name: "raj",
-    age: 26,
-    speak(text: string): void {
-        console.log(text);
-    },
-    spend(amount: number): number {
-        console.log('I spent', amount);
-        return amount
-    }
-};
-
-const greetPerson = (person: isPerson) => {
-    console.log(`hello ${person.name} you are ${person.age} years old`);
-}
-greetPerson(me);
-console.log(me);
-
-
-
-
 import { Invoice } from './modules/invoice.js';
+import { Payments } from './modules/Payments.js';
+import { HasFormatter } from './modules/HasFormatter.js';
 
-const invOne = new Invoice("rajkumar", "work on website", 250);
-const invTwo = new Invoice("lalitha", "work on database", 300);
+// let docOne: HasFormatter;
+// let docTwo: HasFormatter;
 
-let invoices: Invoice[] = []
-invoices.push(invOne);
-invoices.push(invTwo);
+// docOne = new Invoice("rajkumar", "work on website", 250);
+// docTwo = new Payments("lalitha", "work on database", 300);
 
-invoices.forEach(inv => {
-    console.log(inv.format());
-})
+// let docs: HasFormatter[] = [];
+// docs.push(docOne);
+// docs.push(docTwo);
+
+// console.log(docs);
+
+
+// const invOne = new Invoice("rajkumar", "work on website", 250);
+// const invTwo = new Invoice("lalitha", "work on database", 300);
+
+// let invoices: Invoice[] = []
+// invoices.push(invOne);
+// invoices.push(invTwo);
+
+// invoices.forEach(inv => {
+//     console.log(inv.format());
+// })
 
 const form = document.querySelector(".new-item-form") as HTMLFormElement;
 
@@ -49,11 +35,15 @@ const amount = document.querySelector("#amount") as HTMLInputElement;
 
 form.addEventListener('submit', (e: Event) => {
     e.preventDefault();
-    console.log(
-        type.value,
-        tofrom.value,
-        details.value,
-        amount.value
-    );
+
+    let doc: HasFormatter;
+    if (type.value === 'invoice') {
+        doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber);
+    }
+    else {
+        doc = new Payments(tofrom.value, details.value, amount.valueAsNumber);
+    }
+
+    console.log(doc);
 
 })

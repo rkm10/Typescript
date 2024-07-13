@@ -1,6 +1,7 @@
-/* style.css file*/
 body {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     margin: 0;
     padding: 0;
@@ -10,10 +11,40 @@ body {
     background: rgb(128 0 0 / 66%);
 }
 
-.container {
+header {
+    width: 100%;
+    background-color: #000000;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+footer {
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 1rem 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    z-index: 1000;
+}
+
+a {
+    color: #ffffff;
+}
+
+.containers {
     width: 100%;
     max-width: 500px;
     margin: 5px;
+    padding-top: 70px;
+    /* Adjust padding-top to account for the fixed header */
+    padding-bottom: 70px;
+    /* Adjust padding-bottom to account for the fixed footer */
 }
 
 .container h1 {
@@ -70,4 +101,52 @@ video {
     width: 100% !important;
     border: 1px solid #b2b2b2 !important;
     border-radius: 0.25em;
+}
+
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#popup iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+}
+
+#popup-close {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+}
+
+#popup-close:hover {
+    background-color: #0056b3;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 500;
 }

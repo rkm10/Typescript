@@ -13,16 +13,28 @@ function domReady(fn) {
 
 domReady(function () {
 
-    // If found your QR code
     function onScanSuccess(decodeText, decodeResult) {
-        // Update the URL with the scanned URL
-        window.location.href = `http://+decodeText`;
+        // Ensure the URL is HTTPS
+        const scannedUrl = decodeText.startsWith('http://') ? decodeText.replace('http://', 'https://') : `https://${decodeText}`;
+
+        // Show the popup with the scanned URL
+        document.getElementById('popup-content').src = scannedUrl;
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('popup').style.display = 'block';
     }
 
+    document.getElementById('popup-close').addEventListener('click', function () {
+        // Close the popup and clear the iframe src
+        document.getElementById('popup-content').src = '';
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('popup').style.display = 'none';
+        window.location.reload();
+    });
     let htmlscanner = new Html5QrcodeScanner(
         "my-qr-reader",
         { fps: 10, qrbox: 250 }
     );
     htmlscanner.render(onScanSuccess);
 });
+
 

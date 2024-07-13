@@ -5,20 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>QR Code Scanner / Reader
-    </title>
+    <title>QR Code Scanner / Reader</title>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Scan QR Codes</h1>
+    <header>
+        <img src="https://noveloffice.in/wp-content/uploads/2023/08/novel-office-logo.webp" height="auto"
+            alt="Novel Logo" title="Novel Office" style="max-width: 300px;">
+    </header>
+    <div class="containers">
+        <h1>Scan Parking QR</h1>
         <div class="section">
-            <div id="my-qr-reader">
-            </div>
+            <div id="my-qr-reader"></div>
         </div>
     </div>
-    <script src="https://unpkg.com/html5-qrcode">
-    </script>
+    <footer>
+        <p>&copy; Copyright © 2024 Novel Office. All rights reserved.<a
+                href="https://noveloffice.in/privacy-policy-of-novel-office/" target="_blank">Privacy-Policy</a>,<a
+                href="https://noveloffice.in/terms-and-conditions-of-novel-office/" target="_blank">T&amp;C</a>
+        </p>
+    </footer>
+
+    <div id="overlay"></div>
+    <div id="popup">
+        <iframe id="popup-content" src=""></iframe>
+        <button id="popup-close">Close</button>
+    </div>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="script.js"></script>
 </body>
 

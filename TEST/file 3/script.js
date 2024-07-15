@@ -15,51 +15,68 @@ function domReady(fn) {
 domReady(function () {
 
     function onScanSuccess(decodeText, decodeResult) {
+        return new Promise((resolve, reject) => {
+            try {
+                gatePass = decodeText;
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('popup').style.display = 'block';
 
-        // Ensure the scanned code
-        let gatePass = decodeText;
+                //resolve(decodeText);
+                resolve(gatePass);
 
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('popup').style.display = 'block';
-        console.log(gatePass)
+            } catch (error) {
+                //reject if cant decode
+                reject(error);
+            }
+
+        })
+
     }
 
 
+    // Usage of the Promise
+    domReady(function () {
+        let htmlscanner = new Html5QrcodeScanner(
+            "my-qr-reader",
+            { fps: 10, qrbox: 250 }
+        );
 
-    document.getElementById('popup-close').addEventListener('click', function () {
-        closePopup();
-    });
+        htmlscanner.render((decodeText, decodeResult) => {
+            onScanSuccess(decodeText, decodeResult).then((gatePass) => {
+                console.log("Scanned code:", gatePass);
 
-    document.getElementById('popup-close1').addEventListener('click', function () {
-        closePopup();
+                // Fetch and display data using the gatePass
+                sub(gatePass);
+            }).catch((error) => {
+                console.error("Error scanning QR code:", error);
+            });
+        });
+
+        document.getElementById('popup-close').addEventListener('click', function () {
+            closePopup();
+        });
+
+        document.getElementById('popup-close1').addEventListener('click', function () {
+            closePopup();
+        });
+
+        function closePopup() {
+            // Close the popup and clear the iframe src
+            // document.getElementById('popup-content').src = '';
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+            window.location.reload();
+        }
     });
-    function closePopup() {
-        // Close the popup and clear the iframe src
-        // document.getElementById('popup-content').src = '';
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('popup').style.display = 'none';
-        window.location.reload();
-    }
-    let htmlscanner = new Html5QrcodeScanner(
-        "my-qr-reader",
-        { fps: 10, qrbox: 250 }
-    );
-    htmlscanner.render(onScanSuccess);
 });
 
-
-let data = [];
 
 frappe.ready(function () {
     sub();
 })
 
-function sub() {
-    // let url = window.location.href;
-    // let parts = url.split('/');
-    // let id = parts[parts.length - 1];
-    let id = gatePass;
-    fetchData(id);
+function sub(gatePass) {
+    fetchData(gatePass);
 };
 
 async function fetchData(id) {

@@ -6,6 +6,7 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
     font-style: normal;
+    word-break: break-all;
     /* font-size: 26px; */
 }
 
@@ -164,7 +165,7 @@ video {
 
 /* new styles including old*/
 .container {
-    padding: 5px;
+    padding: 10px 0px 0px 0px !important;
 }
 
 .sub-container {
@@ -191,6 +192,11 @@ h2.column-content {
     font-size: 1rem;
 }
 
-/* div#my-qr-reader {
-    width: 80%;
-} */
+.container-flex {
+    width: 150px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    color: #ffff;
+    font-size: larger;
+}

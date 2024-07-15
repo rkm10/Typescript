@@ -19,31 +19,29 @@ function main() {
     document.querySelector(".prev-page-pending").addEventListener("click", () => {
         if (currentPagePending > 1) {
             currentPagePending--;
-            // fetchData(currentPagePending, currentPageApproved);
-
-            document.querySelector(".current-page-pending").innerHTML = currentPagePending - 1;
+            fetchData(currentPagePending, currentPageApproved);
+            document.querySelector("#current-page-pending").innerHTML = currentPagePending;
         }
     });
 
     document.querySelector(".next-page-pending").addEventListener("click", () => {
         currentPagePending++;
-        // fetchData(currentPagePending, currentPageApproved, true);
-        document.querySelector(".current-page-pending").innerHTML = currentPagePending + 1;
+        fetchData(currentPagePending, currentPageApproved, true);
+        document.querySelector("#current-page-pending").innerHTML = currentPagePending;
     });
 
     document.querySelector(".prev-page-approved").addEventListener("click", () => {
         if (currentPageApproved > 1) {
             currentPageApproved--;
-            // fetchData(currentPagePending, currentPageApproved);
-
-            document.querySelector(".current-page-approved").innerHTML = currentPageApproved - 1;
+            fetchData(currentPagePending, currentPageApproved);
+            document.querySelector("#current-page-approved").innerHTML = currentPageApproved;
         }
     });
 
     document.querySelector(".next-page-approved").addEventListener("click", () => {
         currentPageApproved++;
-        // fetchData(currentPagePending, currentPageApproved, true);
-        document.querySelector(".current-page-approved").innerHTML = currentPageApproved + 1;
+        fetchData(currentPagePending, currentPageApproved, true);
+        document.querySelector("#current-page-approved").innerHTML = currentPageApproved;
 
     });
 };

@@ -6,9 +6,7 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
     font-style: normal;
-    /* font-size: 26px; */
 }
-
 
 .web-footer,
 .navbar {
@@ -160,64 +158,4 @@ video {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 500;
-}
-
-/* new styles including old*/
-.container {
-    padding: 5px;
-}
-
-.sub-container {
-    display: flex;
-    justify-content: center;
-}
-
-.row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.column {
-    width: 50%;
-}
-
-/* div#my-qr-reader {
-    width: 80%;
-} */
-
-@media screen and (min-device-width: 081px) and (max-device-width: 500px) {
-    div#my-qr-reader {
-        width: 80% !important;
-        min-height: 600px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    #html5-qrcode-anchor-scan-type-change {
-        font-size: 28px;
-    }
-
-    #my-qr-reader img[alt="Camera based scan"] {
-        width: 200px !important;
-        height: 200px !important;
-    }
-
-    button {
-        font-size: 32px;
-    }
-
-    label {
-        width: 721px;
-    }
-
-    #popup {
-        max-width: 700px !important;
-        min-height: 40%;
-    }
-
-    div {
-        border: none ! important;
-    }
-
 }

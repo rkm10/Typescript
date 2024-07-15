@@ -1,6 +1,4 @@
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="./script.js" defer type="module"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -29,40 +27,37 @@
     <div id="overlay"></div>
     <div id="popup">
         <div id="popup-content" src="">
-            <div class="container border border-base-400 w-12/12 rounded-lg flex flex-col gap-10">
-                <div class="p-2 pt-5">
-                    <div class=" grid grid-cols-2 mb-5">
-                        <div>
-                            <h2 class="pass-id">Gate pass</h2>
-                        </div>
-                        <div class="card bg-base-100 shadow-xl p-2 flex items-center text-white" id="pass-status">
+            <div class="container">
+                <div class="section">
+                    <div class="sub-container">
+                        <div class="container-flex" id="pass-status">
                             Approved
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4 break-words">
-                        <div>
-                            <h5 class="text-xs">Fullname</h5>
-                            <h2 class="text-2xs font-semibold" id="fullname-field">dummmy</h2>
+                    <div class="row">
+                        <div class="column">
+                            <h5 class="column-heading">Fullname</h5>
+                            <h2 class="column-content" id="fullname-field">dummmy</h2>
                         </div>
-                        <div>
-                            <h5 class="text-xs">Email</h5>
-                            <h2 class="text-2xs font-semibold" id="email-field">demo</h2>
+                        <div class="column">
+                            <h5 class="column-heading">Email</h5>
+                            <h2 class="column-content" id="email-field">demo</h2>
                         </div>
-                        <div>
-                            <h5 class="text-xs">Aleternative Email</h5>
-                            <h2 class="text-2xs font-semibold" id="alternative-field">demo</h2>
+                        <div class="column">
+                            <h5 class="column-heading">Aleternative Email</h5>
+                            <h2 class="column-content" id="alternative-field">demo</h2>
                         </div>
-                        <div>
-                            <h5 class="text-xs">Company name</h5>
-                            <h2 class="text-2xs font-semibold" id="company-field">dummy</h2>
+                        <div class="column">
+                            <h5 class="column-heading">Company name</h5>
+                            <h2 class="column-content" id="company-field">dummy</h2>
                         </div>
-                        <div>
-                            <h5 class="text-xs">Date</h5>
-                            <h2 class="text-2xs font-semibold" id="date-field">dummy</h2>
+                        <div class="column">
+                            <h5 class="column-heading">Date</h5>
+                            <h2 class="column-content" id="date-field">dummy</h2>
                         </div>
-                        <div>
-                            <h5 class="text-xs">Time</h5>
-                            <h2 class="text-2xs font-semibold" id="time-field">dummy</h2>
+                        <div class="column">
+                            <h5 class="column-heading">Time</h5>
+                            <h2 class="column-content" id="time-field">dummy</h2>
                         </div>
                     </div>
                 </div>

@@ -1,10 +1,10 @@
 let submitBtn = document.querySelector(".submitBtn");
 let toast = document.querySelector(".toast");
 let gatePassId = "";
-let currentPagePending = 1;
-let currentPageApproved = 1;
-const itemsPerPage = 10;
-const itemsPerApprovedpage = 5;
+let currentPagePending = 1; // Current page number
+let currentPageApproved = 1;  // Current page number
+const itemsPerPage = 10; // Number of items per page for pending
+const itemsPerApprovedpage = 5; //  Number of items per page for approved
 
 frappe.ready(function () {
     console.clear();
@@ -19,30 +19,38 @@ function main() {
     document.querySelector(".prev-page-pending").addEventListener("click", () => {
         if (currentPagePending > 1) {
             currentPagePending--;
-            fetchData(currentPagePending, currentPageApproved);
+            // fetchData(currentPagePending, currentPageApproved);
+
+            document.querySelector(".current-page-pending").innerHTML = currentPagePending - 1;
         }
     });
 
     document.querySelector(".next-page-pending").addEventListener("click", () => {
         currentPagePending++;
-        fetchData(currentPagePending, currentPageApproved);
+        // fetchData(currentPagePending, currentPageApproved, true);
+        document.querySelector(".current-page-pending").innerHTML = currentPagePending + 1;
     });
 
     document.querySelector(".prev-page-approved").addEventListener("click", () => {
         if (currentPageApproved > 1) {
             currentPageApproved--;
             fetchData(currentPagePending, currentPageApproved);
+
+            document.querySelector(".current-page-approved").innerHTML = currentPageApproved - 1;
         }
     });
 
     document.querySelector(".next-page-approved").addEventListener("click", () => {
         currentPageApproved++;
-        fetchData(currentPagePending, currentPageApproved);
+        fetchData(currentPagePending, currentPageApproved, true);
+        document.querySelector(".current-page-approved").innerHTML = currentPageApproved + 1;
+
     });
 };
 
-//Getting all gate pass data
-async function fetchData(pagePending, pageApproved) {
+// Getting all gate pass data
+async function fetchData(pagePending, pageApproved, checkData = false) {
+    // Fetch Pending Gate Passes
     frappe.call({
         method: "frappe.client.get_list",
         args: {
@@ -53,14 +61,22 @@ async function fetchData(pagePending, pageApproved) {
             filters: [['status', '=', 'Pending']]
         },
         callback: function (response) {
+            if (response.message.length === 0 && checkData) {
+                currentPagePending--;
+                return;
+            }
+
             document.querySelector(".tableBody").innerHTML = "";
 
             response.message.forEach((res, index) => {
                 constructTable(res, index + 1, "tableBody");
             });
+
+            togglePaginationButtons('pending', response.message.length);
         }
     });
 
+    // Fetch Approved Gate Passes
     frappe.call({
         method: "frappe.client.get_list",
         args: {
@@ -71,16 +87,34 @@ async function fetchData(pagePending, pageApproved) {
             filters: [['status', '=', 'Approved']]
         },
         callback: function (response) {
+            if (response.message.length === 0 && checkData) {
+                currentPageApproved--;
+                return;
+            }
+
             document.querySelector(".tableBodyAccOrReg").innerHTML = "";
 
             response.message.forEach((res, index) => {
                 constructTable(res, index + 1, "tableBodyAccOrReg");
             });
+
+            togglePaginationButtons('approved', response.message.length);
         }
     });
 };
 
-//Show single gate pass data
+// Toggle pagination buttons
+function togglePaginationButtons(type, dataLength) {
+    if (type === 'pending') {
+        document.querySelector(".prev-page-pending").disabled = currentPagePending === 1;
+        document.querySelector(".next-page-pending").disabled = dataLength < itemsPerPage;
+    } else if (type === 'approved') {
+        document.querySelector(".prev-page-approved").disabled = currentPageApproved === 1;
+        document.querySelector(".next-page-approved").disabled = dataLength < itemsPerApprovedpage;
+    }
+}
+
+// Show single gate pass data
 function showDetails(id) {
     my_modal_3.showModal();
     submitBtn.disabled = false;
@@ -89,7 +123,7 @@ function showDetails(id) {
     fetchSingleData(id);
 };
 
-//Fetch single gate pass data
+// Fetch single gate pass data
 async function fetchSingleData(id) {
     frappe.call({
         method: "frappe.client.get",
@@ -107,7 +141,7 @@ async function fetchSingleData(id) {
     })
 };
 
-//Inserting data to single details form
+// Inserting data to single details form
 function appendDetails(data) {
     document.querySelector(".pass-id").innerHTML = data.name;
     document.querySelector("#leadId").innerHTML = data.lead_id;
@@ -141,7 +175,7 @@ function appendDetails(data) {
     })
 }
 
-//Utility function to create tables
+// Utility function to create tables
 function constructTable(data, slNo, tableName) {
     let tableBody = document.querySelector(`.${tableName}`);
 
@@ -151,7 +185,6 @@ function constructTable(data, slNo, tableName) {
     if (tableName === "tableBody" || tableName === "tableBodyAccOrReg") {
         tableRow.setAttribute("onClick", `showDetails('${data.name}')`);
         tableRow.innerHTML = `
-            
             <td>${data.name}</td>
             <td>${data.customer}</td>
             <td>${data.status}</td>
@@ -168,9 +201,9 @@ function constructTable(data, slNo, tableName) {
     tableBody.appendChild(tableRow);
 }
 
-//Updating status on click of submit
+// Updating status on click of submit
 async function updateStatus() {
-    //Status drop down value
+    // Status drop down value
     let dropdown = document.querySelector(".statusDropdown").value;
 
     if (dropdown !== "Pending") {

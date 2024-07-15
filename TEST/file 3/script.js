@@ -71,13 +71,17 @@ domReady(function () {
 });
 
 
-frappe.ready(function () {
-    sub();
-})
+
 
 function sub(gatePass) {
     fetchData(gatePass);
 };
+
+if (gatePass) {
+    frappe.ready(function () {
+        sub();
+    })
+}
 
 async function fetchData(id) {
     frappe.call({

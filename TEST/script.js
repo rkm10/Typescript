@@ -47,10 +47,10 @@ async function fetchData(pagePending, pageApproved) {
         method: "frappe.client.get_list",
         args: {
             doctype: "Gate Pass",
-            fields: ['name', 'gate_pass_status', 'customer', 'location'],
+            fields: ['name', 'status', 'customer', 'location'],
             limit_start: (pagePending - 1) * itemsPerPage,
             limit_page_length: itemsPerPage,
-            filters: [['gate_pass_status', '=', 'Pending']]
+            filters: [['status', '=', 'Pending']]
         },
         callback: function (response) {
             document.querySelector(".tableBody").innerHTML = "";
@@ -65,10 +65,10 @@ async function fetchData(pagePending, pageApproved) {
         method: "frappe.client.get_list",
         args: {
             doctype: "Gate Pass",
-            fields: ['name', 'gate_pass_status', 'customer', 'location'],
+            fields: ['name', 'status', 'customer', 'location'],
             limit_start: (pageApproved - 1) * itemsPerApprovedpage,
             limit_page_length: itemsPerApprovedpage,
-            filters: [['gate_pass_status', '=', 'Approved']]
+            filters: [['status', '=', 'Approved']]
         },
         callback: function (response) {
             document.querySelector(".tableBodyAccOrReg").innerHTML = "";
@@ -122,9 +122,9 @@ function appendDetails(data) {
     document.querySelector(".tableBodyOfItems").innerHTML = "";
 
     let statusDiv = document.querySelector(".status");
-    statusDiv.innerHTML = data.gate_pass_status;
+    statusDiv.innerHTML = data.status;
 
-    switch (data.gate_pass_status) {
+    switch (data.status) {
         case "Pending":
             statusDiv.style.backgroundColor = "#ff7300";
             break;
@@ -154,7 +154,7 @@ function constructTable(data, slNo, tableName) {
             
             <td>${data.name}</td>
             <td>${data.customer}</td>
-            <td>${data.gate_pass_status}</td>
+            <td>${data.status}</td>
             <td>${data.location}</td>
         `;
     } else {
@@ -185,7 +185,7 @@ async function updateStatus() {
         gatePassDoc = gatePassDoc.message;
 
         gatePassDoc.changed_by_cr = 1;
-        gatePassDoc.gate_pass_status = dropdown;
+        gatePassDoc.status = dropdown;
 
         let updatedGatePassDoc = await frappe.call({
             method: "frappe.client.save",

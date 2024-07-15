@@ -1,0 +1,90 @@
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<div class="rootContainer">
+    <!-- Page Header -->
+    <header>
+        <img src="https://noveloffice.in/wp-content/uploads/2023/08/novel-office-logo.webp" height="auto"
+            alt="Novel Logo" title="Novel Office" style="max-width: 230px;">
+    </header>
+
+    <!-- Main Content -->
+    <div class="main">
+        <br />
+        <h2 class="gate">Gate Pass Scanner</h2>
+        <br />
+        <div id="my-qr-reader"></div>
+        <br />
+        <!--<button id="openPopup">Click Me</button>-->
+    </div>
+
+    <!-- Page Footer -->
+    <footer>
+        <span style="font-size: 14px; margin: 0;">&copy; Copyright 2024 Novel Office.</span>
+    </footer>
+
+    <div id="overlay"></div>
+    <div id="popup">
+        <div id="popup-content" src="">
+            <div class="container border border-base-400 lg:w-5/12 md:w-9/12 w-11/12 rounded-lg flex flex-col gap-10">
+                <div class="p-2 pt-5">
+                    <div class=" grid grid-cols-2 mb-5">
+                        <div>
+                            <h2 class="pass-id">Gate pass</h2>
+                        </div>
+                        <div class="card bg-base-100 shadow-xl p-2 flex items-center text-white" id="pass-status">
+                            Approved
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 break-words">
+                        <div>
+                            <h5 class="text-xs">Fullname</h5>
+                            <h2 class="text-2xs font-semibold" id="fullname-field">dummmy</h2>
+                        </div>
+                        <div>
+                            <h5 class="text-xs">Email</h5>
+                            <h2 class="text-2xs font-semibold" id="email-field">demo</h2>
+                        </div>
+                        <div>
+                            <h5 class="text-xs">Aleternative Email</h5>
+                            <h2 class="text-2xs font-semibold" id="alternative-field">demo</h2>
+                        </div>
+                        <div>
+                            <h5 class="text-xs">Company name</h5>
+                            <h2 class="text-2xs font-semibold" id="company-field">dummy</h2>
+                        </div>
+                        <div>
+                            <h5 class="text-xs">Date</h5>
+                            <h2 class="text-2xs font-semibold" id="date-field">dummy</h2>
+                        </div>
+                        <div>
+                            <h5 class="text-xs">Time</h5>
+                            <h2 class="text-2xs font-semibold" id="time-field">dummy</h2>
+                        </div>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="font-semibold text-xl">Sl.no</th>
+                            <th class="font-semibold text-xl">Type</th>
+                            <th class="font-semibold text-xl">Name</th>
+                            <th class="font-semibold text-xl">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody class="Bodytable">
+
+                        <!--This content is appending from java script-->
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <button id="popup-close">Close</button>
+        <button id="popup-close1">X</button>
+    </div>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+</div>

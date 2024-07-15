@@ -34,7 +34,7 @@ function main() {
     document.querySelector(".prev-page-approved").addEventListener("click", () => {
         if (currentPageApproved > 1) {
             currentPageApproved--;
-            fetchData(currentPagePending, currentPageApproved);
+            // fetchData(currentPagePending, currentPageApproved);
 
             document.querySelector(".current-page-approved").innerHTML = currentPageApproved - 1;
         }
@@ -42,7 +42,7 @@ function main() {
 
     document.querySelector(".next-page-approved").addEventListener("click", () => {
         currentPageApproved++;
-        fetchData(currentPagePending, currentPageApproved, true);
+        // fetchData(currentPagePending, currentPageApproved, true);
         document.querySelector(".current-page-approved").innerHTML = currentPageApproved + 1;
 
     });

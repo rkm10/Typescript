@@ -11,24 +11,20 @@ function domReady(fn) {
     }
 }
 
+
 domReady(function () {
 
     function onScanSuccess(decodeText, decodeResult) {
-        // let url = new URL(window.location.href);
-        // let domain = url.hostname;
 
         // Ensure the scanned code
         let gatePass = decodeText;
 
-        // // Ensure the scanned URL is HTTPS
-        // const scannedUrl = decodeText.startsWith('http://')
-        //     ? decodeText.replace('http://', 'https://') : `https://${domain}/gatepass/security/${decodeText}`;
-
-        // Show the popup with the scanned URL
-        // document.getElementById('popup-content').src = scannedUrl;
         document.getElementById('overlay').style.display = 'block';
         document.getElementById('popup').style.display = 'block';
+        console.log(gatePass)
     }
+
+
 
     document.getElementById('popup-close').addEventListener('click', function () {
         closePopup();
@@ -39,7 +35,7 @@ domReady(function () {
     });
     function closePopup() {
         // Close the popup and clear the iframe src
-        document.getElementById('popup-content').src = '';
+        // document.getElementById('popup-content').src = '';
         document.getElementById('overlay').style.display = 'none';
         document.getElementById('popup').style.display = 'none';
         window.location.reload();

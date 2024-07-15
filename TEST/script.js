@@ -16,32 +16,34 @@ function main() {
 
     submitBtn.addEventListener("click", updateStatus);
 
+    // Pagination controls for pending gate passes
     document.querySelector(".prev-page-pending").addEventListener("click", () => {
         if (currentPagePending > 1) {
             currentPagePending--;
             fetchData(currentPagePending, currentPageApproved);
-            document.querySelector("#current-page-pending").innerHTML = currentPagePending;
+            document.querySelector("#current-page-pending").innerHTML = currentPagePending; // Update the current page number
         }
     });
 
     document.querySelector(".next-page-pending").addEventListener("click", () => {
         currentPagePending++;
         fetchData(currentPagePending, currentPageApproved, true);
-        document.querySelector("#current-page-pending").innerHTML = currentPagePending;
+        document.querySelector("#current-page-pending").innerHTML = currentPagePending; // Update the current page number
     });
 
+    // Pagination controls for approved gate passes
     document.querySelector(".prev-page-approved").addEventListener("click", () => {
         if (currentPageApproved > 1) {
             currentPageApproved--;
             fetchData(currentPagePending, currentPageApproved);
-            document.querySelector("#current-page-approved").innerHTML = currentPageApproved;
+            document.querySelector("#current-page-approved").innerHTML = currentPageApproved; // Update the current page number
         }
     });
 
     document.querySelector(".next-page-approved").addEventListener("click", () => {
         currentPageApproved++;
         fetchData(currentPagePending, currentPageApproved, true);
-        document.querySelector("#current-page-approved").innerHTML = currentPageApproved;
+        document.querySelector("#current-page-approved").innerHTML = currentPageApproved; // Update the current page number
 
     });
 };
@@ -54,20 +56,20 @@ async function fetchData(pagePending, pageApproved, checkData = false) {
         args: {
             doctype: "Gate Pass",
             fields: ['name', 'status', 'customer', 'location'],
-            limit_start: (pagePending - 1) * itemsPerPage,
-            limit_page_length: itemsPerPage,
-            filters: [['status', '=', 'Pending']]
+            limit_start: (pagePending - 1) * itemsPerPage, // Start from the previous page
+            limit_page_length: itemsPerPage,             // Number of items per page
+            filters: [['status', '=', 'Pending']]         // Filter by status
         },
         callback: function (response) {
             if (response.message.length === 0 && checkData) {
-                currentPagePending--;
+                currentPagePending--;       // Decrement the current page number if no data is found
                 return;
             }
 
             document.querySelector(".tableBody").innerHTML = "";
 
             response.message.forEach((res, index) => {
-                constructTable(res, index + 1, "tableBody");
+                constructTable(res, index + 1, "tableBody"); // Construct the table
             });
 
             togglePaginationButtons('pending', response.message.length);
@@ -80,20 +82,20 @@ async function fetchData(pagePending, pageApproved, checkData = false) {
         args: {
             doctype: "Gate Pass",
             fields: ['name', 'status', 'customer', 'location'],
-            limit_start: (pageApproved - 1) * itemsPerApprovedpage,
-            limit_page_length: itemsPerApprovedpage,
-            filters: [['status', '=', 'Approved']]
+            limit_start: (pageApproved - 1) * itemsPerApprovedpage,         // Start from the previous page
+            limit_page_length: itemsPerApprovedpage,    // Number of items per page
+            filters: [['status', '=', 'Approved']]         // Filter by status
         },
         callback: function (response) {
             if (response.message.length === 0 && checkData) {
-                currentPageApproved--;
+                currentPageApproved--; // Decrement the current page number if no data is found
                 return;
             }
 
             document.querySelector(".tableBodyAccOrReg").innerHTML = "";
 
             response.message.forEach((res, index) => {
-                constructTable(res, index + 1, "tableBodyAccOrReg");
+                constructTable(res, index + 1, "tableBodyAccOrReg"); // Construct the table
             });
 
             togglePaginationButtons('approved', response.message.length);
@@ -104,11 +106,11 @@ async function fetchData(pagePending, pageApproved, checkData = false) {
 // Toggle pagination buttons
 function togglePaginationButtons(type, dataLength) {
     if (type === 'pending') {
-        document.querySelector(".prev-page-pending").disabled = currentPagePending === 1;
-        document.querySelector(".next-page-pending").disabled = dataLength < itemsPerPage;
+        document.querySelector(".prev-page-pending").disabled = currentPagePending === 1;  // Disable the previous button if on the first page
+        document.querySelector(".next-page-pending").disabled = dataLength < itemsPerPage;  // Disable the next button if there are no more items
     } else if (type === 'approved') {
-        document.querySelector(".prev-page-approved").disabled = currentPageApproved === 1;
-        document.querySelector(".next-page-approved").disabled = dataLength < itemsPerApprovedpage;
+        document.querySelector(".prev-page-approved").disabled = currentPageApproved === 1; // Disable the previous button if on the first page
+        document.querySelector(".next-page-approved").disabled = dataLength < itemsPerApprovedpage; // Disable the next button if there are no more items
     }
 }
 
@@ -156,6 +158,7 @@ function appendDetails(data) {
     let statusDiv = document.querySelector(".status");
     statusDiv.innerHTML = data.status;
 
+    // Set status color based on status
     switch (data.status) {
         case "Pending":
             statusDiv.style.backgroundColor = "#ff7300";
@@ -169,7 +172,7 @@ function appendDetails(data) {
     }
 
     data.gate_pass_items.forEach((item, index) => {
-        constructTable(item, index + 1, "tableBodyOfItems");
+        constructTable(item, index + 1, "tableBodyOfItems"); // Construct the table
     })
 }
 
@@ -180,6 +183,7 @@ function constructTable(data, slNo, tableName) {
     let tableRow = document.createElement("tr");
     tableRow.classList.add("hover", "tableRow");
 
+    // Set onClick attribute based on table name
     if (tableName === "tableBody" || tableName === "tableBodyAccOrReg") {
         tableRow.setAttribute("onClick", `showDetails('${data.name}')`);
         tableRow.innerHTML = `

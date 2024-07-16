@@ -1,0 +1,99 @@
+.web-footer,
+.navbar {
+    display: none !important;
+}
+
+table {
+    cursor: pointer;
+}
+
+
+header {
+    height: 9vh;
+    background-color: #000000;
+    text-align: center;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+}
+
+footer {
+    height: 4vh;
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*pagination starts here */
+
+.pagination-controls-pending {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pagination-controls-approved {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+button.prev-page-pending {
+    background-color: #217273;
+    padding: 5px;
+    width: 100px;
+    color: #ffff;
+    font-weight: 600;
+    outline: none;
+}
+
+button.next-page-pending {
+    background-color: #217273;
+    padding: 5px;
+    width: 100px;
+    color: #ffff;
+    font-weight: 600;
+    outline: none;
+}
+
+button.next-page-approved {
+    background-color: #217273;
+    padding: 5px;
+    width: 100px;
+    color: #ffff;
+    font-weight: 600;
+    outline: none;
+}
+
+button.prev-page-approved {
+    background-color: #217273;
+    padding: 5px;
+    width: 100px;
+    color: #ffff;
+    font-weight: 600;
+    outline: none;
+}
+
+
+span.page-number-pending {
+    display: flex;
+    align-items: center;
+}
+
+span.page-number-approved {
+    display: flex;
+    align-items: center;
+}
+
+th.font-semibold.text-xl {
+    font-size: 1rem !important;
+}
+
+.modal-box {
+    padding-top: 1.5rem !important;
+    /*padding: 0 !important;*/
+    padding-bottom: 1.5rem !important;
+}

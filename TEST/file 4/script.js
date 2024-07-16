@@ -69,6 +69,18 @@ async function fetchData() {
     });
 };
 
+
+// Toggle pagination buttons
+function togglePaginationButtons(type, dataLength) {
+    if (type === 'pending') {
+        document.querySelector(".prev-page-pending").disabled = currentPagePending === 1;  // Disable the previous button if on the first page
+        document.querySelector(".next-page-pending").disabled = dataLength < itemsPerPage;  // Disable the next button if there are no more items
+    } else if (type === 'approved') {
+        document.querySelector(".prev-page-approved").disabled = currentPageApproved === 1; // Disable the previous button if on the first page
+        document.querySelector(".next-page-approved").disabled = dataLength < itemsPerApprovedpage; // Disable the next button if there are no more items
+    }
+}
+
 //Show single Print request data
 function showDetails(id) {
     my_modal_3.showModal();

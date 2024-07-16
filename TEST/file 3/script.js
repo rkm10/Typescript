@@ -80,9 +80,10 @@ if (gatePass) {
 
 async function fetchData(id) {
     frappe.call({
-        method: "gate_pass_by_id",
+        method: "frappe.client.get",
         args: {
-            id: id,
+            doctype: "Gate Pass",
+            name: id
         },
         callback: function (response) {
             // console.log(response.message);

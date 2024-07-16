@@ -172,14 +172,10 @@ function appendDetails(data) {
     document.getElementById("fullname-field").innerHTML = data.full_name;
     document.getElementById("phone-field").innerHTML = data.phone_number;
     document.getElementById("company-field").innerHTML = data.customer;
-    document.getElementById("price-field").innerHTML = data.customer;
+    document.getElementById("price-field").innerHTML = data.total_price;
     document.getElementById("date-field").innerHTML = data.modified.split(" ")[0];
     document.getElementById("time-field").innerHTML = data.modified.split(" ")[1].split(".")[0];
     document.querySelector(".tableBodyOfItems").innerHTML = "";
-
-    // let negativeDiv = document.querySelector(".negative");
-    // negativeDiv.style.display = "none"
-    // document.querySelector("#due-field").innerHTML = data.due_date;
 
     let statusDiv = document.querySelector(".status");
     statusDiv.innerHTML = data.status;

@@ -50,10 +50,10 @@ a {
     color: #ffffff;
 }
 
-.gate {
-    font-size: 2.5rem !important;
-    font-weight: 600 !important;
-}
+/*.gate {*/
+/*    font-size: 2.5rem !important;*/
+/*    font-weight: 600 !important;*/
+/*}*/
 
 #my-qr-reader {
     padding: 20px !important;
@@ -109,6 +109,8 @@ video {
     position: fixed;
     top: 50%;
     left: 50%;
+    /*max-height: 60%;*/
+    /*overflow: scroll;*/
     transform: translate(-50%, -50%);
     width: 100%;
     max-width: 600px;
@@ -117,6 +119,11 @@ video {
     padding: 5px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     z-index: 1000;
+}
+
+div#popup-content {
+    max-height: 400px;
+    overflow: scroll;
 }
 
 #popup iframe {
@@ -143,13 +150,20 @@ video {
 
 #popup-close1 {
     position: absolute;
-    right: -2px;
-    top: -45px;
-    background-color: #007BFF !important;
+    right: 0px;
+    border: none !important;
+    top: -57px;
+    border-radius: 50%;
+    display: flex;
+    background-color: #217273 !important;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
 }
 
 #popup-close1:hover {
-    background-color: #0056b3 !important;
+    background-color: #217271 !important;
 }
 
 #overlay {
@@ -177,7 +191,6 @@ video {
     display: flex;
     flex-wrap: wrap;
     padding: 10px;
-    justify-content: center;
 }
 
 .column {
@@ -191,9 +204,6 @@ h5.column-heading {
 
 h2.column-content {
     font-size: 1rem;
-    font-weight: 400;
-    color: #000000;
-    margin-bottom: 10px;
 }
 
 .container-flex {
@@ -204,3 +214,27 @@ h2.column-content {
     color: #ffff;
     font-size: larger;
 }
+
+.modal-dialog.modal-dialog-scrollable.msgprint-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* max-height: 60%; */
+    /* overflow: scroll; */
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+div#my-qr-reader__dashboard_section>div>div {
+    width: 100% !important;
+}
+
+/*.modal.fade.show .modal-backdrop.fade.show{*/
+/*    display: none !important;*/
+/*}*/

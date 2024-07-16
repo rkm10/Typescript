@@ -61,8 +61,6 @@ domReady(function () {
         });
 
         function closePopup() {
-            // Close the popup and clear the iframe src
-            // document.getElementById('popup-content').src = '';
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('popup').style.display = 'none';
             window.location.reload();

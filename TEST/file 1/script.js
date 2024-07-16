@@ -84,7 +84,7 @@ async function fetchData(pagePending, pageApproved, checkData = false) {
             fields: ['name', 'status', 'customer', 'location'],
             limit_start: (pageApproved - 1) * itemsPerApprovedpage,         // Start from the previous page
             limit_page_length: itemsPerApprovedpage,    // Number of items per page
-            filters: [['status', '=', 'Approved']]         // Filter by status
+            filters: [['status', '!=', 'pending']]         // Filter by status
         },
         callback: function (response) {
             if (response.message.length === 0 && checkData) {

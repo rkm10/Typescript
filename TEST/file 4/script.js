@@ -1,6 +1,10 @@
 let submitBtn = document.querySelector(".submitBtn");
 let toast = document.querySelector(".toast");
 let printRequestId = "";
+let currentPagePending = 1; // Current page number
+let currentPageApproved = 1;  // Current page number
+const itemsPerPage = 10; // Number of items per page for pending
+const itemsPerApprovedpage = 5; //  Number of items per page for approved
 
 frappe.ready(function () {
     console.clear();
@@ -11,6 +15,37 @@ function main() {
     fetchData();
 
     submitBtn.addEventListener("click", updateStatus);
+
+    // Pagination controls for pending gate passes
+    document.querySelector(".prev-page-pending").addEventListener("click", () => {
+        if (currentPagePending > 1) {
+            currentPagePending--;
+            fetchData(currentPagePending, currentPageApproved);
+            document.querySelector("#current-page-pending").innerHTML = currentPagePending; // Update the current page number
+        }
+    });
+
+    document.querySelector(".next-page-pending").addEventListener("click", () => {
+        currentPagePending++;
+        fetchData(currentPagePending, currentPageApproved, true);
+        document.querySelector("#current-page-pending").innerHTML = currentPagePending; // Update the current page number
+    });
+
+    // Pagination controls for approved gate passes
+    document.querySelector(".prev-page-approved").addEventListener("click", () => {
+        if (currentPageApproved > 1) {
+            currentPageApproved--;
+            fetchData(currentPagePending, currentPageApproved);
+            document.querySelector("#current-page-approved").innerHTML = currentPageApproved; // Update the current page number
+        }
+    });
+
+    document.querySelector(".next-page-approved").addEventListener("click", () => {
+        currentPageApproved++;
+        fetchData(currentPagePending, currentPageApproved, true);
+        document.querySelector("#current-page-approved").innerHTML = currentPageApproved; // Update the current page number
+
+    });
 };
 
 //Getting all Print Request data

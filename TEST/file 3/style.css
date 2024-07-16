@@ -123,7 +123,7 @@ video {
 
 div#popup-content {
     max-height: 400px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 #popup iframe {
@@ -223,7 +223,7 @@ h2.column-content {
     /* overflow: scroll; */
     transform: translate(-50%, -50%);
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
     background-color: white;
     border: 1px solid #ccc;
     padding: 5px;
@@ -233,6 +233,12 @@ h2.column-content {
 
 div#my-qr-reader__dashboard_section>div>div {
     width: 100% !important;
+}
+
+.msgprint {
+    word-wrap: break-word;
+    color: black;
+    font-weight: 600;
 }
 
 /*.modal.fade.show .modal-backdrop.fade.show{*/

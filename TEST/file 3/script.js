@@ -95,7 +95,7 @@ async function fetchData(id) {
 
 function showDetails(data) {
     document.getElementById("fullname-field").innerHTML = data.full_name;
-    document.getElementById("email-field").innerHTML = data.user;
+    // document.getElementById("email-field").innerHTML = data.user;
     document.getElementById("alternative-field").innerHTML = data.another_email;
     document.getElementById("company-field").innerHTML = data.customer;
     document.getElementById("date-field").innerHTML = data.date;

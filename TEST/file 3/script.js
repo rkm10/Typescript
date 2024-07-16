@@ -52,9 +52,9 @@ domReady(function () {
             });
         });
 
-        document.getElementById('popup-close').addEventListener('click', function () {
-            closePopup();
-        });
+        // document.getElementById('popup-close').addEventListener('click', function () {
+        //     closePopup();
+        // });
 
         document.getElementById('popup-close1').addEventListener('click', function () {
             closePopup();

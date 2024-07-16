@@ -52,7 +52,7 @@ domReady(function () {
             });
         });
 
-        // document.getElementById('popup-close').addEventListener('click', function () {
+        // document.getElementsByClassName('close').addEventListener('click', function () {
         //     closePopup();
         // });
 
@@ -161,3 +161,7 @@ function constructTable(items, slNo) {
 }
 
 
+
+document.querySelector('.close').addEventListener('click', function () {
+    closePopup();
+});

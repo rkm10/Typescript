@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html data-theme="cupcake" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <!-- Page Header -->
+    <header>
+        <img src="https://noveloffice.in/wp-content/uploads/2023/08/novel-office-logo.webp" height="auto"
+            alt="Novel Logo" title="Novel Office" style="max-width: 230px;">
+    </header>
+
+    <!------ Main Content ------>
+    <div class="container flex items-center justify-center flex-col pt-2">
+        <div class="p-4 font-semibold text-xl">
+            <h3>Pending Print Request</h3>
+        </div>
+        <div class="container flex items-center justify-center">
+            <div class="overflow-x-auto w-5/6 ">
+                <table class="table table-zebra">
+                    <!-- head -->
+                    <thead>
+                        <tr class="hover">
+                            <th>Sl No</th>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Customer</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tableBody">
+
+                        <!--This content is appending from java script-->
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- You can open the modal using ID.showModal() method -->
+            <dialog id="my_modal_3" class="modal">
+                <div class="modal-box">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 closeBtn">✕</button>
+                    </form>
+                    <div class="modalContent flex items-center justify-center gap-2 flex-col">
+                        <div class="singleContent">
+                            <div class="flex flex-col justify-center items-center w-full h-full">
+                                <div class="">
+                                    <div class="p-5 ">
+                                        <div class=" grid grid-cols-2 mb-4">
+                                            <div>
+                                                <h2 class="pass-id text-xl font-bold undeline">
+                                                    Sample layout</h2>
+                                            </div>
+                                            <div class="card text-white status flex items-center justify-center p-2">
+                                                <p>
+                                                    Accepted
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4 break-words ">
+                                            <div>
+                                                <h5 class="text-xs">Fullname</h5>
+                                                <h2 class="text-2sm font-bold" id="fullname-field">Hassan</h2>
+                                            </div>
+                                            <div>
+                                                <h5 class="text-xs">Email</h5>
+                                                <h2 class="text-2sm font-bold" id="email-field">
+                                                    Hassan</h2>
+                                            </div>
+                                            <div>
+                                                <h5 class="text-xs">Phone Number</h5>
+                                                <h2 class="text-2sm font-bold" id="phone-field">
+                                                    Hassan</h2>
+
+                                            </div>
+                                            <div>
+                                                <h5 class="text-xs">Company name</h5>
+                                                <h2 class="text-2sm font-bold" id="company-field">Hassan</h2>
+                                            </div>
+                                            <div>
+                                                <h5 class="text-xs">Date</h5>
+                                                <h2 class="text-2sm font-bold" id="date-field">
+                                                    Hassan</h2>
+                                            </div>
+                                            <div>
+                                                <h5 class="text-xs">Time</h5>
+                                                <h2 class="text-2sm font-bold" id="time-field">
+                                                    Hassan</h2>
+                                            </div>
+                                        </div>
+                                        <div class="text-justify pt-5">
+                                            <h5 class="text-xs">Description</h5>
+                                            <h2 class="text-2sm font-bold p-5" id="description-field">
+                                                Hassan</h2>
+                                        </div>
+                                        <div class="text-justify pt-5">
+                                            <h5 class="text-xs">Total Price</h5>
+                                            <h2 class="text-2sm font-bold p-5 text-red-500" id="price-field">
+                                                Hassan</h2>
+                                        </div>
+                                    </div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="font-semibold text-xl">Sl No</th>
+                                                <th class="font-semibold text-xl">Type</th>
+                                                <th class="font-semibold text-xl">Pages</th>
+                                                <th class="font-semibold text-xl">Quantity</th>
+                                                <th class="font-semibold text-xl">Attachment</th>
+                                                <th class="font-semibold text-xl">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tableBodyOfItems">
+                                            <!--This content is appending from java script-->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <select class="select select-info w-full max-w-xs statusDropdown">
+                            <option>Completed</option>
+                        </select>
+                        <button class="btn btn-active submitBtn">Submit</button>
+                    </div>
+                    <div class="toast toast-top toast-center">
+                        <div class="alert alert-success">
+                            <span>Status Updated successfully.</span>
+                        </div>
+                    </div>
+                </div>
+            </dialog>
+        </div>
+    </div>
+    <div class="container flex items-center justify-center flex-col pt-2">
+        <div class="p-4 font-semibold text-xl">
+            <h3>Completed Print Request</h3>
+        </div>
+        <div class="container flex items-center justify-center">
+            <div class="overflow-x-auto w-5/6 ">
+                <table class="table table-zebra">
+                    <!-- head -->
+                    <thead>
+                        <tr class="hover">
+                            <th>Sl No</th>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Customer</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tableBodyAccOrReg">
+
+                        <!--This content is appending from java script-->
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Page Footer -->
+    <footer>
+        <span style="font-size: 14px; margin: 0;">&copy; Copyright 2024 Novel Office.</span>
+    </footer>
+</body>
+
+</html>

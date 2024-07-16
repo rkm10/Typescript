@@ -68,9 +68,6 @@ domReady(function () {
     });
 });
 
-
-
-
 function sub(gatePass) {
     fetchData(gatePass);
 };

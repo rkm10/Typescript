@@ -33,7 +33,6 @@ domReady(function () {
 
     }
 
-
     // Usage of the Promise
     domReady(function () {
         let htmlscanner = new Html5QrcodeScanner(
@@ -46,6 +45,7 @@ domReady(function () {
                 console.log("Scanned code:", gatePass);
 
                 // Fetch and display data using the gatePass
+                htmlscanner.clear();
                 sub(gatePass);
             }).catch((error) => {
                 console.error("Error scanning QR code:", error);

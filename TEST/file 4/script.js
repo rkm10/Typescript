@@ -48,26 +48,83 @@ function main() {
     });
 };
 
-//Getting all Print Request data
-async function fetchData() {
+// //Getting all Print Request data
+// async function fetchData() {
+//     frappe.call({
+//         method: "frappe.client.get_list",
+//         args: {
+//             doctype: "Print Request",
+//             fields: ['name', 'full_name', 'status', 'customer', 'location'],
+//             limit_page_length: 0,
+//         },
+//         callback: function (response) {
+//             response.message.forEach((res, index) => {
+//                 if (res.status === "Pending") {
+//                     constructTable(res, index + 1, "tableBody");
+//                 } else {
+//                     constructTable(res, index + 1, "tableBodyAccOrReg");
+//                 }
+//             });
+//         }
+//     });
+// };
+
+// Getting all gate pass data
+async function fetchData(pagePending, pageApproved, checkData = false) {
+    // Fetch Pending Gate Passes
     frappe.call({
         method: "frappe.client.get_list",
         args: {
             doctype: "Print Request",
             fields: ['name', 'full_name', 'status', 'customer', 'location'],
-            limit_page_length: 0,
+            limit_start: (pagePending - 1) * itemsPerPage, // Start from the previous page
+            limit_page_length: itemsPerPage,             // Number of items per page
+            filters: [['status', '=', 'Pending']]         // Filter by status
         },
         callback: function (response) {
+            if (response.message.length === 0 && checkData) {
+                currentPagePending--;       // Decrement the current page number if no data is found
+                return;
+            }
+
+            document.querySelector(".tableBody").innerHTML = "";
+
             response.message.forEach((res, index) => {
-                if (res.status === "Pending") {
-                    constructTable(res, index + 1, "tableBody");
-                } else {
-                    constructTable(res, index + 1, "tableBodyAccOrReg");
-                }
+                constructTable(res, index + 1, "tableBody"); // Construct the table
             });
+
+            togglePaginationButtons('pending', response.message.length);
+        }
+    });
+
+    // Fetch Approved Gate Passes
+    frappe.call({
+        method: "frappe.client.get_list",
+        args: {
+            doctype: "Print Request",
+            fields: ['name', 'full_name', 'status', 'customer', 'location'],
+            limit_start: (pageApproved - 1) * itemsPerApprovedpage,         // Start from the previous page
+            limit_page_length: itemsPerApprovedpage,    // Number of items per page
+            filters: [['status', '!=', 'pending']]         // Filter by status
+        },
+        callback: function (response) {
+            if (response.message.length === 0 && checkData) {
+                currentPageApproved--; // Decrement the current page number if no data is found
+                return;
+            }
+
+            document.querySelector(".tableBodyAccOrReg").innerHTML = "";
+
+            response.message.forEach((res, index) => {
+                constructTable(res, index + 1, "tableBodyAccOrReg"); // Construct the table
+            });
+
+            togglePaginationButtons('approved', response.message.length);
         }
     });
 };
+
+
 
 
 // Toggle pagination buttons

@@ -1,12 +1,12 @@
 let submitBtn = document.querySelector(".submitBtn");
 let toast = document.querySelector(".toast");
-let gatePassId = "";
-let currentPagePending = 1; // Current page number for pending gate passes
-let totalPagesPending = 1; // Total pages for pending gate passes
-let currentPageApproved = 1; // Current page number for approved gate passes
-let totalPagesApproved = 1; // Total pages for approved gate passes
-const itemsPerPage = 10; // Number of items per page for pending gate passes
-const itemsPerApprovedPage = 5; // Number of items per page for approved gate passes
+let printRequestId = "";
+let currentPagePending = 1; // Current page number
+let totalPagesPending = 1; // toal pages number
+let currentPageApproved = 1;  // Current page number
+let totalPagesApproved = 1; // total pages number
+const itemsPerPage = 10; // Number of items per page for pending
+const itemsPerApprovedpage = 5; //  Number of items per page for approved
 
 frappe.ready(function () {
     console.clear();
@@ -19,7 +19,7 @@ function main() {
 
     submitBtn.addEventListener("click", updateStatus);
 
-    // Pagination controls for pending gate passes
+    // Pagination controls for pending Print Requestes
     document.querySelector(".prev-page-pending").addEventListener("click", () => {
         if (currentPagePending > 1) {
             currentPagePending--;
@@ -36,7 +36,7 @@ function main() {
         }
     });
 
-    // Pagination controls for approved gate passes
+    // Pagination controls for approved Print Requestes
     document.querySelector(".prev-page-approved").addEventListener("click", () => {
         if (currentPageApproved > 1) {
             currentPageApproved--;
@@ -53,54 +53,52 @@ function main() {
         }
     });
 }
-
-// Fetch total pages for pending and approved gate passes
+// Fetch total pages for pending and approved Print Request
 async function fetchTotalPages() {
     frappe.call({
         method: "frappe.client.get_list",
         args: {
-            doctype: "Gate Pass",
+            doctype: "Print Request",
             fields: ['name'],
             filters: [['status', '=', 'Pending']]
         },
         callback: function (response) {
             let totalPendingRecords = response.message.length;
             totalPagesPending = Math.ceil(totalPendingRecords / itemsPerPage);
-            document.querySelector("#total-pages-pending").innerHTML = totalPagesPending; // Display total pages for pending gate passes
+            document.querySelector("#total-pages-pending").innerHTML = totalPagesPending; // Display total pages for pending Print Requestes
         }
     });
 
     frappe.call({
         method: "frappe.client.get_list",
         args: {
-            doctype: "Gate Pass",
+            doctype: "Print Request",
             fields: ['name'],
             filters: [['status', '=', 'Approved']]
         },
         callback: function (response) {
             let totalApprovedRecords = response.message.length;
             totalPagesApproved = Math.ceil(totalApprovedRecords / itemsPerApprovedPage);
-            document.querySelector("#total-pages-approved").innerHTML = totalPagesApproved; // Display total pages for approved gate passes
-            console.log(totalPagesApproved);
+            document.querySelector("#total-pages-approved").innerHTML = totalPagesApproved; // Display total pages for approved Print Requestes
+            // console.log(totalPagesApproved);
         }
     });
 }
-
-// Fetching gate pass data
+// Getting all Print Request data
 async function fetchData(pagePending, pageApproved, checkData = false) {
-    // Fetch Pending Gate Passes
+    // Fetch Pending Print Requestes
     frappe.call({
         method: "frappe.client.get_list",
         args: {
-            doctype: "Gate Pass",
-            fields: ['name', 'status', 'customer', 'location'],
+            doctype: "Print Request",
+            fields: ['name', 'full_name', 'status', 'customer', 'location'],
             limit_start: (pagePending - 1) * itemsPerPage, // Start from the previous page
-            limit_page_length: itemsPerPage, // Number of items per page
-            filters: [['status', '=', 'Pending']] // Filter by status
+            limit_page_length: itemsPerPage,             // Number of items per page
+            filters: [['status', '=', 'Pending']]         // Filter by status
         },
         callback: function (response) {
             if (response.message.length === 0 && checkData) {
-                currentPagePending--; // Decrement the current page number if no data is found
+                currentPagePending--;       // Decrement the current page number if no data is found
                 return;
             }
 
@@ -114,15 +112,15 @@ async function fetchData(pagePending, pageApproved, checkData = false) {
         }
     });
 
-    // Fetch Approved Gate Passes
+    // Fetch Approved Print Requestes
     frappe.call({
         method: "frappe.client.get_list",
         args: {
-            doctype: "Gate Pass",
-            fields: ['name', 'status', 'customer', 'location'],
-            limit_start: (pageApproved - 1) * itemsPerApprovedPage, // Start from the previous page
-            limit_page_length: itemsPerApprovedPage, // Number of items per page
-            filters: [['status', '=', 'Approved']] // Filter by status
+            doctype: "Print Request",
+            fields: ['name', 'full_name', 'status', 'customer', 'location'],
+            limit_start: (pageApproved - 1) * itemsPerApprovedpage,         // Start from the previous page
+            limit_page_length: itemsPerApprovedpage,    // Number of items per page
+            filters: [['status', '!=', 'pending']]         // Filter by status
         },
         callback: function (response) {
             if (response.message.length === 0 && checkData) {
@@ -139,129 +137,135 @@ async function fetchData(pagePending, pageApproved, checkData = false) {
             togglePaginationButtons('approved', response.message.length);
         }
     });
-}
+};
+
+
+
 
 // Toggle pagination buttons
 function togglePaginationButtons(type, dataLength) {
     if (type === 'pending') {
-        document.querySelector(".prev-page-pending").disabled = currentPagePending === 1; // Disable the previous button if on the first page
-        document.querySelector(".next-page-pending").disabled = currentPagePending === totalPagesPending; // Disable the next button if on the last page
+        document.querySelector(".prev-page-pending").disabled = currentPagePending === 1;  // Disable the previous button if on the first page
+        document.querySelector(".next-page-pending").disabled = dataLength < itemsPerPage;  // Disable the next button if there are no more items
     } else if (type === 'approved') {
         document.querySelector(".prev-page-approved").disabled = currentPageApproved === 1; // Disable the previous button if on the first page
-        document.querySelector(".next-page-approved").disabled = currentPageApproved === totalPagesApproved; // Disable the next button if on the last page
+        document.querySelector(".next-page-approved").disabled = dataLength < itemsPerApprovedpage; // Disable the next button if there are no more items
     }
 }
 
-// Show single gate pass data
+//Show single Print request data
 function showDetails(id) {
     my_modal_3.showModal();
     submitBtn.disabled = false;
     toast.style.display = "none";
-    gatePassId = id;
+    printRequestId = id;
     fetchSingleData(id);
-}
+};
 
-// Fetch single gate pass data
+//Fetch single Print request data
 async function fetchSingleData(id) {
     frappe.call({
         method: "frappe.client.get",
         args: {
-            doctype: "Gate Pass",
+            doctype: "Print Request",
             name: id,
         },
         callback: function (response) {
             appendDetails(response.message);
-            console.log(response.message);
-            if (response.message.status === "Approved") {
+            if (response.message.status === "Completed") {
                 submitBtn.disabled = true;
             }
         }
-    });
-}
+    })
+};
 
-// Inserting data to single details form
+//Inserting data to single details form
 function appendDetails(data) {
     document.querySelector(".pass-id").innerHTML = data.name;
-    document.querySelector("#leadId").innerHTML = data.lead_id;
-    document.querySelector("#leasing_status").innerHTML = data.leasing_status;
     document.getElementById("email-field").innerHTML = data.user;
+    document.getElementById("description-field").innerHTML = data.description;
     document.getElementById("fullname-field").innerHTML = data.full_name;
-    document.getElementById("alternative-field").innerHTML = data.another_email;
+    document.getElementById("phone-field").innerHTML = data.phone_number;
     document.getElementById("company-field").innerHTML = data.customer;
-    document.getElementById("date-field").innerHTML = data.date;
-    document.getElementById("location_field").innerHTML = data.location;
-    document.getElementById("time-field").innerHTML = data.time.split(".")[0];
+    document.getElementById("price-field").innerHTML = data.total_price;
+    document.getElementById("date-field").innerHTML = data.modified.split(" ")[0];
+    document.getElementById("time-field").innerHTML = data.modified.split(" ")[1].split(".")[0];
     document.querySelector(".tableBodyOfItems").innerHTML = "";
 
     let statusDiv = document.querySelector(".status");
     statusDiv.innerHTML = data.status;
 
-    // Set status color based on status
     switch (data.status) {
         case "Pending":
             statusDiv.style.backgroundColor = "#ff7300";
+            // negativeDiv.style.display = "block";
             break;
-        case "Approved":
+        case "Completed":
             statusDiv.style.backgroundColor = "green";
             break;
         default:
-            statusDiv.style.backgroundColor = "red";
+            statusDiv.style.backgroundColor = "green";
+            // negativeDiv.style.display = "block";
             break;
     }
 
-    data.gate_pass_items.forEach((item, index) => {
-        constructTable(item, index + 1, "tableBodyOfItems"); // Construct the table
-    });
+    data.print_request_items.forEach((item, index) => {
+        constructTable(item, index + 1, "tableBodyOfItems");
+    })
 }
 
-// Utility function to create tables
+//Utility function to create tables
 function constructTable(data, slNo, tableName) {
     let tableBody = document.querySelector(`.${tableName}`);
 
     let tableRow = document.createElement("tr");
     tableRow.classList.add("hover", "tableRow");
 
-    // Set onClick attribute based on table name
     if (tableName === "tableBody" || tableName === "tableBodyAccOrReg") {
         tableRow.setAttribute("onClick", `showDetails('${data.name}')`);
         tableRow.innerHTML = `
+            <th>${slNo}</th>
             <td>${data.name}</td>
+            <td>${data.full_name}</td>
             <td>${data.customer}</td>
-            <td>${data.status}</td>
             <td>${data.location}</td>
+            <td>${data.status}</td>
         `;
     } else {
         tableRow.innerHTML = `
-            <th>${slNo}</th>
-            <td>${data.item_code}</td>
-            <td>${data.description}</td>
-            <td>${data.qty}</td>
-            <td>${data.uom}</td>
-            <td>${data.customer}</td>
+            <th>${data.idx}</th>
+            <td>${data.type}</td>
+            <td>${data.pages}</td>
+            <td>${data.copies}</td>
+            <td><a href=${data.attachment} target="_blank" rel="noopener">${data.attachment.split('/')[2]}</a></td>
+            <td>${data.price}</td>
         `;
     }
-
     tableBody.appendChild(tableRow);
 }
 
-// Update status
+//Updating status on click of submit
 async function updateStatus() {
-    submitBtn.disabled = true;
+    //Status drop down value
+    let dropdown = document.querySelector(".statusDropdown").value;
 
-    frappe.call({
-        method: "frappe.client.set_value",
-        args: {
-            doctype: "Gate Pass",
-            name: gatePassId,
-            fieldname: {
-                status: "Approved"
+    if (dropdown !== "Pending") {
+        frappe.call({
+            method: "frappe.client.set_value",
+            args: {
+                doctype: "Print Request",
+                name: printRequestId,
+                fieldname: "status",
+                value: dropdown
+            },
+            callback: function (response) {
+                toast.style.display = "contents";
+                submitBtn.disabled = true;
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log(err);
             }
-        },
-        callback: function (response) {
-            toast.style.display = "block";
-            toast.innerHTML = "Gate pass updated successfully.";
-            submitBtn.disabled = true;
-            fetchData(currentPagePending, currentPageApproved); // Refresh data
-        }
-    });
+        });
+    }
 }

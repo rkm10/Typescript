@@ -2,7 +2,9 @@ let submitBtn = document.querySelector(".submitBtn");
 let toast = document.querySelector(".toast");
 let printRequestId = "";
 let currentPagePending = 1; // Current page number
+let totalPagesPending = 1; // toal pages number
 let currentPageApproved = 1;  // Current page number
+let totalPagesApproved = 1; // total pages number
 const itemsPerPage = 10; // Number of items per page for pending
 const itemsPerApprovedpage = 5; //  Number of items per page for approved
 

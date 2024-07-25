@@ -10,6 +10,11 @@ const itemsPerApprovedPage = 5; // Number of items per page for approved gate pa
 
 frappe.ready(function () {
     console.clear();
+    user = frappe.session.user;
+    if (user === "Guest" || user === "guest") {
+        my_modal_1.showModal()
+        return;
+    }
     main();
 });
 
@@ -217,9 +222,11 @@ function appendDetails(data) {
 // Utility function to create tables
 function constructTable(data, slNo, tableName) {
     let tableBody = document.querySelector(`.${tableName}`);
+    console.log(data);
 
     let tableRow = document.createElement("tr");
     tableRow.classList.add("hover", "tableRow");
+
 
     // Set onClick attribute based on table name
     if (tableName === "tableBody" || tableName === "tableBodyAccOrReg") {
@@ -233,11 +240,9 @@ function constructTable(data, slNo, tableName) {
     } else {
         tableRow.innerHTML = `
             <th>${slNo}</th>
-            <td>${data.item_code}</td>
-            <td>${data.description}</td>
-            <td>${data.qty}</td>
-            <td>${data.uom}</td>
-            <td>${data.customer}</td>
+            <td>${data.type}</td>
+            <td>${data.name1}</td>
+            <td>${data.quantity}</td>
         `;
     }
 
